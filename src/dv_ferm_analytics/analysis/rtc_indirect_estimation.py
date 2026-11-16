@@ -46,131 +46,131 @@ class IndirectRtcResult:
 
 INDICATORS: Mapping[str, IndicatorDefinition] = {
     "bagaco": IndicatorDefinition(
-        "PRDBAGACO",
+        "perd_bagaco",
         "PERDAS em AT_ART - BAGAÇO (%)",
     ),
     "torta": IndicatorDefinition(
-        "PRDTORTAFILT",
+        "perd_torta",
         "PERDAS em AT_ART - TORTA DE FILTRO (%)",
     ),
     "lav_cana": IndicatorDefinition(
-        "PRDAGLAVCANA",
+        "perd_recep_cana",
         "PERDAS em AT_ART - ÁGUAS DA RECEPÇÃO DE CANA (%)",
     ),
     "multijato": IndicatorDefinition(
-        "PRDMULTIGER",
+        "perd_multijato",
         "PERDAS em AT_ART - ÁGUAS DOS MULTIJATOS - GERAL (%)",
     ),
     "residuais": IndicatorDefinition(
-        "PRDAGRESGER",
+        "perd_resid",
         "PERDAS em AT_ART - ÁGUAS RESIDUAIS - GERAL (%)",
     ),
     "indeterminada": IndicatorDefinition(
-        "PRDINDETERM",
+        "perd_indet_dig",
         "PERDAS em AT_ART - INDETERMINADAS (%)",
     ),
     "indeterminada_prensa": IndicatorDefinition(
-        "PERDINDETPRE",
+        "perd_indet_prensa",
         "PERDAS em ART - INDETERMINADAS - PRENSA (%)",
     ),
     "rtc": IndicatorDefinition(
-        "RTC%",
+        "rtc_dig",
         "RTC - RECUPERADO TOTAL CORRIGIDO - DIGESTOR (%)",
     ),
     "moagem": IndicatorDefinition(
-        "CANAPROCES",
+        "cana_moida",
         "CANA PROCESSADA (t)",
     ),
     "art_cana": IndicatorDefinition(
-        "ARTCANAGIDES",
+        "atart_cana_dig",
         "AT_ART DA CANA - DIGESTOR (%)",
     ),
     "extracao": IndicatorDefinition(
-        "EXTRTOTAL%",
+        "extr_atart",
         "EXTRAÇÃO TOTAL EM AT_ART (%)",
     ),
     "mix": IndicatorDefinition(
-        "ARTENSAC",
+        "mix_acucar",
         "AT_ART DA CANA ENSACADO - MIX (%)",
     ),
     "imf": IndicatorDefinition(
-        "INMOFA",
+        "ind_monit_mel_final_centrif",
         "MEL FINAL APÓS TANQUE ESTOQUE - ÍNDICE DE MONITARAMENTO DOS MÉIS FINAIS",
     ),
     "pzmel": IndicatorDefinition(
-        "MELFINPRZ",
+        "mel_pureza",
         "MEL FINAL APÓS ESTOQUE - PUREZA (%)",
     ),
     "acidezmel": IndicatorDefinition(
-        "ACIDEZMELBRX",
+        "acidez_mel_final_centrif_bx",
         "MEL FINAL APÓS ESTOQUE - ACIDEZ NA BASE BRIX",
     ),
     "rgd": IndicatorDefinition(
-        "RENDGERDEST",
+        "rgd",
         "RGD - RENDIMENTO GERAL DA DESTILARIA (%)",
     ),
     "bastonetes": IndicatorDefinition(
-        "BASTVINH10^5",
+        "bast_vinho",
         "VINHO BRUTO - BASTONETES X 10^5/mL",
     ),
     "gl": IndicatorDefinition(
-        "VINHO%ALCOOL",
+        "alcool_vinho",
         "VINHO BRUTO - TEOR ALCOÓLICO (%)",
     ),
     "vin_fleg": IndicatorDefinition(
-        "PRDVINHFLEGM",
+        "perd_etanol_vinhaca_fleg",
         "PERDA em ETANOL - VINHAÇA + FLEGMAÇA (%)",
     ),
     "art_vinho": IndicatorDefinition(
-        "ARTVINBRU",
+        "atart_vinho",
         "AT_ART NO VINHO BRUTO (%)",
     ),
     "art_vinho_art_mosto": IndicatorDefinition(
-        "ARTVMO",
+        "atart_resid_mosto",
         "AT_ART DO VINHO BRUTO % AT_ART MOSTO",
     ),
     "temp_vinho": IndicatorDefinition(
-        "TEMPVINBRMAX",
+        "temp_ferm",
         "TEMPERATURA NO VINHO BRUTO - MÉDIAS DAS MÁXIMAS (ºC)",
     ),
     "biomassa": IndicatorDefinition(
-        "BIOM%ARTMOST",
+        "biomassa_prod_mosto",
         "BIOMASSA TOTAL % AT_ART DO MOSTO",
     ),
     "glicerol": IndicatorDefinition(
-        "GLIC%ARTMOST",
+        "glicerol_prod_mosto",
         "GLICEROL % AT_ART DO MOSTO",
     ),
     "rec_co2": IndicatorDefinition(
-        "RECETCO2",
+        "rec_etanol_co2",
         "RECUPERAÇÃO EM ETANOL NA TORRE DE C02 (%)",
     ),
     "rtc_prensa": IndicatorDefinition(
-        "RTCPRENSA",
+        "rtc_prensa",
         "RTC - RECUPERADO TOTAL CORRIDO - PRENSA (%)",
     ),
     "prod_acucar": IndicatorDefinition(
-        "ACPROD100PCT",
+        "producao_acucar",
         "AÇÚCAR TOTAL PRODUZIDO TRANSFORMADO A 100% (t)",
     ),
     "prod_etanol": IndicatorDefinition(
-        "ETPROD100PCV",
+        "producao_etanol",
         "ETANOL TOTAL PRODUZIDO TRANSFORMADO A 100% (m³)",
     ),
     "tempo_aprov_geral": IndicatorDefinition(
-        "TENTRCANAPND",
+        "tempo_aprov_geral",
         "TEMPO DE APROVEITAMENTO - GERAL (%)",
     ),
     "sjm": IndicatorDefinition(
-        "RECUPSJM",
+        "rec_fabrica_sjm",
         "RECUPERADO DE FÁBRICA DE AÇÚCAR - SJM (%)",
     ),
     "rt_prensa": IndicatorDefinition(
-        "RECTOTALPREN",
+        "rt_prensa",
         "RECUPERADO TOTAL - PRENSA (%)",
     ),
     "chuva": IndicatorDefinition(
-        "CHUVAMM",
+        "chuva",
         "CHUVA (mm)",
     ),
 }
@@ -579,7 +579,7 @@ def calculate_indirect_rtc(
                 "Usa AT_ART do vinho bruto % AT_ART mosto. Se ausente, o código "
                 "original converte o valor para zero com np.nan_to_num."
             ),
-            "Valores utilizados": f"ARTVMO={_fmt(art_vinho_art_mosto)}",
+            "Valores utilizados": f"atart_resid_mosto={_fmt(art_vinho_art_mosto)}",
             "Resultado": perda_art_residual_vinho,
         },
         {

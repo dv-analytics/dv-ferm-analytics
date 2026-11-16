@@ -35,7 +35,7 @@ def test_calculate_top5_benchmark():
         data.append(
             {
                 "usina_nome": usina,
-                "tag_benchmarking": "RTC%",
+                "tag_benchmarking": "rtc_dig",
                 "VALOR_ACUMULADO": rtc_values[usina],
                 "DATA_HORA": "2026-07-31",
                 "usina_destilaria_autonoma": False,
@@ -125,7 +125,7 @@ def _build_filter_test_df():
         rows.append(
             {
                 "usina_nome": name,
-                "tag_benchmarking": "RTC%",
+                "tag_benchmarking": "rtc_dig",
                 "VALOR_ACUMULADO": rtc,
                 "DATA_HORA": "2026-07-31",
                 "usina_destilaria_autonoma": autonoma,

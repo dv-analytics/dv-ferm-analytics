@@ -22,20 +22,20 @@ def _row(date: str, tag: str, value: float) -> dict[str, object]:
 def _history() -> pd.DataFrame:
     rows = [
         # 2024 propositalmente melhor em alguns indicadores. Deve ser ignorado.
-        _row("2024-08-31", "RTC%", 97.0),
-        _row("2024-08-31", "EXTRTOTAL%", 98.0),
+        _row("2024-08-31", "rtc_dig", 97.0),
+        _row("2024-08-31", "extr_atart", 98.0),
         # Ano anterior: dois pontos de RTC, deve usar o último.
-        _row("2025-08-10", "RTC%", 91.0),
-        _row("2025-08-31", "RTC%", 92.0),
-        _row("2025-08-31", "EXTRTOTAL%", 96.5),
-        _row("2025-08-31", "PRDTORTAFILT", 0.25),
-        _row("2025-08-31", "ARTENSAC", 52.0),
+        _row("2025-08-10", "rtc_dig", 91.0),
+        _row("2025-08-31", "rtc_dig", 92.0),
+        _row("2025-08-31", "extr_atart", 96.5),
+        _row("2025-08-31", "perd_torta", 0.25),
+        _row("2025-08-31", "mix_acucar", 52.0),
         # Atual
-        _row("2026-08-10", "RTC%", 92.5),
-        _row("2026-08-31", "RTC%", 93.0),
-        _row("2026-08-31", "EXTRTOTAL%", 95.0),
-        _row("2026-08-31", "PRDTORTAFILT", 0.40),
-        _row("2026-08-31", "ARTENSAC", 45.0),
+        _row("2026-08-10", "rtc_dig", 92.5),
+        _row("2026-08-31", "rtc_dig", 93.0),
+        _row("2026-08-31", "extr_atart", 95.0),
+        _row("2026-08-31", "perd_torta", 0.40),
+        _row("2026-08-31", "mix_acucar", 45.0),
     ]
     return pd.DataFrame(rows)
 
@@ -55,7 +55,7 @@ def test_build_snapshot_uses_latest_value_in_month() -> None:
     )
 
     rtc = snapshot.loc[
-        snapshot["tag_benchmarking"] == "RTC%",
+        snapshot["tag_benchmarking"] == "rtc_dig",
         "VALOR_ACUMULADO",
     ].iloc[0]
 
@@ -79,7 +79,7 @@ def test_previous_year_is_exactly_current_minus_one() -> None:
     assert result.previous_rtc == pytest.approx(92.0)
 
     rtc_row = result.table.loc[
-        result.table["tag_benchmarking"] == "RTC%"
+        result.table["tag_benchmarking"] == "rtc_dig"
     ].iloc[0]
 
     assert rtc_row["Ano atual"] == pytest.approx(93.0)
@@ -99,7 +99,7 @@ def test_older_year_is_not_used_even_when_better() -> None:
     )
 
     extracao = result.table.loc[
-        result.table["tag_benchmarking"] == "EXTRTOTAL%"
+        result.table["tag_benchmarking"] == "extr_atart"
     ].iloc[0]
 
     assert extracao["Ano anterior"] == pytest.approx(96.5)
@@ -119,7 +119,7 @@ def test_mix_can_be_excluded_from_opportunities() -> None:
         include_mix_in_analysis=False,
     )
 
-    assert "ARTENSAC" not in set(result.table["tag_benchmarking"])
+    assert "mix_acucar" not in set(result.table["tag_benchmarking"])
     assert any(
         "Mix foi excluído" in assumption
         for assumption in result.assumptions

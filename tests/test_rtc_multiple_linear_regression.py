@@ -36,12 +36,12 @@ def _make_data(seed: int = 42):
         {
             "ano": periods.year,
             "mes": periods.month,
-            "RTC%": rtc,
-            "EXTRTOTAL%": extraction,
-            "PRDTORTAFILT": filter_loss,
-            "RENDGERDEST": rgd,
-            "TENTRCANAPND": time_util,
-            "ARTENSAC": mix,
+            "rtc_dig": rtc,
+            "extr_atart": extraction,
+            "perd_torta": filter_loss,
+            "rgd": rgd,
+            "tempo_aprov_geral": time_util,
+            "mix_acucar": mix,
         }
     )
 
@@ -117,7 +117,7 @@ def test_does_not_mutate_input_dataframes():
 
 def test_fails_gracefully_when_target_has_less_than_ten_valid_values():
     monthly, accumulated = _make_data()
-    monthly.loc[8:, "RTC%"] = np.nan
+    monthly.loc[8:, "rtc_dig"] = np.nan
 
     result = calculate_rtc_multiple_linear_regression(
         monthly,
@@ -143,8 +143,8 @@ def test_loss_with_wrong_positive_coefficient_is_removed_by_sign_constraint():
         {
             "ano": periods.year,
             "mes": periods.month,
-            "RTC%": rtc,
-            "PRDTORTAFILT": loss,
+            "rtc_dig": rtc,
+            "perd_torta": loss,
         }
     )
     accumulated = monthly.copy()

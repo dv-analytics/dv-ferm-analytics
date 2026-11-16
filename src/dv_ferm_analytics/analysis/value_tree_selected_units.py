@@ -58,7 +58,7 @@ def build_selected_units_reference(
     indicator_col: str = "tag_benchmarking",
     value_col: str = "VALOR_ACUMULADO",
     date_col: str = "DATA_HORA",
-    sugar_mix_tag: str = "ARTENSAC",
+    sugar_mix_tag: str = "mix_acucar",
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, tuple[int, ...]]:
     """Constrói a referência média das usinas explicitamente selecionadas.
 
@@ -278,11 +278,11 @@ def calculate_selected_units_value_tree(
     sugar_mix_pct: float | None = None,
     include_mix: bool = True,
     require_all_reference_units: bool = True,
-    moagem_tag: str = "CANAPROCES",
-    art_cana_tag: str = "ARTCANAGIDES",
-    sugar_mix_tag: str = "ARTENSAC",
-    ethanol_production_tag: str = "ETPROD100PCV",
-    sugar_production_tag: str = "ACPROD100PCT",
+    moagem_tag: str = "cana_moida",
+    art_cana_tag: str = "atart_cana_dig",
+    sugar_mix_tag: str = "mix_acucar",
+    ethanol_production_tag: str = "producao_etanol",
+    sugar_production_tag: str = "producao_acucar",
     plant_code_col: str = "usina_code_benchmarking",
     plant_col: str = "usina_nome",
     indicator_col: str = "tag_benchmarking",

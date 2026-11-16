@@ -1,6 +1,6 @@
 [project]
 name = "dv-ferm-analytics"
-version = "0.1.1"
+version = "0.2.0"
 description = "Reusable Python tools for data analysis, visualization, and automated technical report generation."
 authors = [
     {name = "dv-analytics", email = "202854379+dv-analytics@users.noreply.github.com"}

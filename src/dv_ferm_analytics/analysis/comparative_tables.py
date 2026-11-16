@@ -63,30 +63,30 @@ class ComparativeTableResult:
 # por ComparisonIndicator(direction=...) ou direction_map.
 DEFAULT_HIGHER_IS_BETTER_TAGS = frozenset(
     {
-        "RTC%",
-        "EXTRTOTAL%",
-        "RENDGERDEST",
-        "RECETCO2",
-        "RECUPSJM",
-        "TENTRCANAPND",
+        "rtc_dig",
+        "extr_atart",
+        "rgd",
+        "rec_etanol_co2",
+        "rec_fabrica_sjm",
+        "tempo_aprov_geral",
     }
 )
 
 DEFAULT_LOWER_IS_BETTER_TAGS = frozenset(
     {
-        "PRDTORTAFILT",
-        "PRDAGRESGER",
-        "PRDMULTIGER",
-        "PRDAGLAVCANA",
-        "PRDINDETERM",
-        "PRDVINHFLEGM",
-        "ARTVMO",
-        "GLIC%ARTMOST",
-        "BIOM%ARTMOST",
-        "BASTVINH10^5",
-        "ACIDEZMELBRX",
-        "MELFINPRZ",
-        "INMOFA",
+        "perd_torta",
+        "perd_resid",
+        "perd_multijato",
+        "perd_recep_cana",
+        "perd_indet_dig",
+        "perd_etanol_vinhaca_fleg",
+        "atart_resid_mosto",
+        "glicerol_prod_mosto",
+        "biomassa_prod_mosto",
+        "bast_vinho",
+        "acidez_mel_final_centrif_bx",
+        "mel_pureza",
+        "ind_monit_mel_final_centrif",
     }
 )
 

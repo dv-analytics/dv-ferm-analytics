@@ -28,38 +28,38 @@ def _commodity_prices() -> CommodityPrices:
 def _df_usina_complete() -> pd.DataFrame:
     rows = [
         # Entradas principais. Há dois registros para validar o uso do último acumulado.
-        ("2026-07-31", "CANAPROCES", 900_000.0),
-        ("2026-08-31", "CANAPROCES", 1_000_000.0),
-        ("2026-07-31", "ARTCANAGIDES", 13.5),
-        ("2026-08-31", "ARTCANAGIDES", 14.0),
+        ("2026-07-31", "cana_moida", 900_000.0),
+        ("2026-08-31", "cana_moida", 1_000_000.0),
+        ("2026-07-31", "atart_cana_dig", 13.5),
+        ("2026-08-31", "atart_cana_dig", 14.0),
         # Indicadores da árvore de valor.
-        ("2026-08-31", "RTC%", 94.0),
-        ("2026-08-31", "EXTRTOTAL%", 96.0),
-        ("2026-08-31", "PRDTORTAFILT", 0.50),
-        ("2026-08-31", "PRDAGRESGER", 0.40),
-        ("2026-08-31", "PRDAGLAVCANA", 0.20),
-        ("2026-08-31", "PRDINDETERM", 1.00),
-        ("2026-08-31", "RENDGERDEST", 88.0),
-        ("2026-08-31", "BASTVINH10^5", 50.0),
-        ("2026-08-31", "GLIC%ARTMOST", 2.80),
-        ("2026-08-31", "BIOM%ARTMOST", 3.00),
-        ("2026-08-31", "PRDVINHFLEGM", 0.80),
-        ("2026-08-31", "RECETCO2", 70.0),
-        ("2026-08-31", "ACIDOSULF", 10.0),
-        ("2026-08-31", "ANTESPDISPDA", 2.0),
-        ("2026-08-31", "ARTVMO", 0.50),
+        ("2026-08-31", "rtc_dig", 94.0),
+        ("2026-08-31", "extr_atart", 96.0),
+        ("2026-08-31", "perd_torta", 0.50),
+        ("2026-08-31", "perd_resid", 0.40),
+        ("2026-08-31", "perd_recep_cana", 0.20),
+        ("2026-08-31", "perd_indet_dig", 1.00),
+        ("2026-08-31", "rgd", 88.0),
+        ("2026-08-31", "bast_vinho", 50.0),
+        ("2026-08-31", "glicerol_prod_mosto", 2.80),
+        ("2026-08-31", "biomassa_prod_mosto", 3.00),
+        ("2026-08-31", "perd_etanol_vinhaca_fleg", 0.80),
+        ("2026-08-31", "rec_etanol_co2", 70.0),
+        ("2026-08-31", "dose_acido_sulfurico_etanol", 10.0),
+        ("2026-08-31", "antiesp_disp_litro", 2.0),
+        ("2026-08-31", "atart_resid_mosto", 0.50),
         # Indicadores adicionais para usina não autônoma.
-        ("2026-08-31", "PRDMULTIGER", 0.30),
-        ("2026-08-31", "ARTENSAC", 45.0),
-        ("2026-08-31", "CALGSC", 5.0),
-        ("2026-08-31", "PLIMGPSC", 1.0),
+        ("2026-08-31", "perd_multijato", 0.30),
+        ("2026-08-31", "mix_acucar", 45.0),
+        ("2026-08-31", "dose_cal_saca", 5.0),
+        ("2026-08-31", "dose_polimero_saca", 1.0),
         # Produções auxiliares.
-        ("2026-08-31", "ETPROD100PCV", 60_000.0),
-        ("2026-08-31", "ACPROD100PCT", 70_000.0),
+        ("2026-08-31", "producao_etanol", 60_000.0),
+        ("2026-08-31", "producao_acucar", 70_000.0),
         # Indicadores atualmente desativados na configuração pública da árvore.
-        ("2026-08-31", "MELFINPRZ", 60.0),
-        ("2026-08-31", "INMOFA", 90.0),
-        ("2026-08-31", "RECUPSJM", 90.0),
+        ("2026-08-31", "mel_pureza", 60.0),
+        ("2026-08-31", "ind_monit_mel_final_centrif", 90.0),
+        ("2026-08-31", "rec_fabrica_sjm", 90.0),
     ]
 
     return pd.DataFrame(
@@ -70,29 +70,29 @@ def _df_usina_complete() -> pd.DataFrame:
 
 def _df_top5_complete() -> pd.DataFrame:
     rows = [
-        ("RTC%", 95.0),
-        ("EXTRTOTAL%", 97.0),
-        ("PRDTORTAFILT", 0.40),
-        ("PRDAGRESGER", 0.30),
-        ("PRDAGLAVCANA", 0.15),
-        ("PRDINDETERM", 0.80),
-        ("RENDGERDEST", 90.0),
-        ("BASTVINH10^5", 40.0),
-        ("GLIC%ARTMOST", 2.50),
-        ("BIOM%ARTMOST", 2.70),
-        ("PRDVINHFLEGM", 0.60),
-        ("RECETCO2", 75.0),
-        ("ACIDOSULF", 8.0),
-        ("ANTESPDISPDA", 1.5),
-        ("ARTVMO", 0.30),
-        ("PRDMULTIGER", 0.20),
-        ("ARTENSAC", 50.0),
-        ("CALGSC", 4.0),
-        ("PLIMGPSC", 0.8),
+        ("rtc_dig", 95.0),
+        ("extr_atart", 97.0),
+        ("perd_torta", 0.40),
+        ("perd_resid", 0.30),
+        ("perd_recep_cana", 0.15),
+        ("perd_indet_dig", 0.80),
+        ("rgd", 90.0),
+        ("bast_vinho", 40.0),
+        ("glicerol_prod_mosto", 2.50),
+        ("biomassa_prod_mosto", 2.70),
+        ("perd_etanol_vinhaca_fleg", 0.60),
+        ("rec_etanol_co2", 75.0),
+        ("dose_acido_sulfurico_etanol", 8.0),
+        ("antiesp_disp_litro", 1.5),
+        ("atart_resid_mosto", 0.30),
+        ("perd_multijato", 0.20),
+        ("mix_acucar", 50.0),
+        ("dose_cal_saca", 4.0),
+        ("dose_polimero_saca", 0.8),
         # Permanecem no DataFrame para confirmar que a configuração atual os ignora.
-        ("MELFINPRZ", 55.0),
-        ("INMOFA", 85.0),
-        ("RECUPSJM", 92.0),
+        ("mel_pureza", 55.0),
+        ("ind_monit_mel_final_centrif", 85.0),
+        ("rec_fabrica_sjm", 92.0),
     ]
 
     return pd.DataFrame(
@@ -106,8 +106,8 @@ def test_resolve_value_tree_inputs_from_dataframe():
 
     assert result.moagem_safra_ton == pytest.approx(1_000_000.0)
     assert result.art_cana_medio_pct == pytest.approx(14.0)
-    assert "CANAPROCES" in result.moagem_source
-    assert "ARTCANAGIDES" in result.art_cana_source
+    assert "cana_moida" in result.moagem_source
+    assert "atart_cana_dig" in result.art_cana_source
 
 
 def test_explicit_values_have_priority():
@@ -144,17 +144,17 @@ def test_calculate_financial_loss():
 def test_validate_input_prices():
     prices = validate_input_prices(
         {
-            "CALGSC": 0.00100,
-            "PLIMGPSC": 0.00200,
-            "ACIDOSULF": 0.00300,
-            "ANTESPDISPDA": 0.00400,
+            "dose_cal_saca": 0.00100,
+            "dose_polimero_saca": 0.00200,
+            "dose_acido_sulfurico_etanol": 0.00300,
+            "antiesp_disp_litro": 0.00400,
         }
     )
 
-    assert prices["CALGSC"] == pytest.approx(0.00100)
-    assert prices["PLIMGPSC"] == pytest.approx(0.00200)
-    assert prices["ACIDOSULF"] == pytest.approx(0.00300)
-    assert prices["ANTESPDISPDA"] == pytest.approx(0.00400)
+    assert prices["dose_cal_saca"] == pytest.approx(0.00100)
+    assert prices["dose_polimero_saca"] == pytest.approx(0.00200)
+    assert prices["dose_acido_sulfurico_etanol"] == pytest.approx(0.00300)
+    assert prices["antiesp_disp_litro"] == pytest.approx(0.00400)
 
 
 def test_build_value_tree_comparison():
@@ -164,7 +164,7 @@ def test_build_value_tree_comparison():
     )
 
     rtc = comparison.loc[
-        comparison["tag_benchmarking"] == "RTC%"
+        comparison["tag_benchmarking"] == "rtc_dig"
     ].iloc[0]
 
     assert rtc["valor_usina"] == pytest.approx(94.0)
@@ -181,7 +181,7 @@ def test_calculate_basic_indicator_gain_higher_is_better():
     )
 
     gain = calculate_basic_indicator_gain(
-        indicator="RTC%",
+        indicator="rtc_dig",
         value_usina=94.0,
         value_top5=95.0,
         inputs=inputs,
@@ -202,7 +202,7 @@ def test_calculate_basic_indicator_gain_lower_is_better():
     )
 
     gain = calculate_basic_indicator_gain(
-        indicator="PRDTORTAFILT",
+        indicator="perd_torta",
         value_usina=0.50,
         value_top5=0.40,
         inputs=inputs,
@@ -223,7 +223,7 @@ def test_calculate_basic_indicator_gain_returns_none_when_no_improvement():
     )
 
     gain_higher = calculate_basic_indicator_gain(
-        indicator="RTC%",
+        indicator="rtc_dig",
         value_usina=96.0,
         value_top5=95.0,
         inputs=inputs,
@@ -232,7 +232,7 @@ def test_calculate_basic_indicator_gain_returns_none_when_no_improvement():
     )
 
     gain_lower = calculate_basic_indicator_gain(
-        indicator="PRDTORTAFILT",
+        indicator="perd_torta",
         value_usina=0.30,
         value_top5=0.40,
         inputs=inputs,
@@ -271,16 +271,16 @@ def test_calculate_value_tree_complete():
         autonoma=False,
         commodity_prices=_commodity_prices(),
         input_prices={
-            "CALGSC": 0.00100,
-            "PLIMGPSC": 0.00200,
-            "ACIDOSULF": 0.00300,
-            "ANTESPDISPDA": 0.00400,
+            "dose_cal_saca": 0.00100,
+            "dose_polimero_saca": 0.00200,
+            "dose_acido_sulfurico_etanol": 0.00300,
+            "antiesp_disp_litro": 0.00400,
         },
     )
 
     assert not result.table.empty
-    assert "RTC%" in set(result.table["tag_benchmarking"])
-    assert "ARTENSAC" in set(result.table["tag_benchmarking"])
+    assert "rtc_dig" in set(result.table["tag_benchmarking"])
+    assert "mix_acucar" in set(result.table["tag_benchmarking"])
     assert result.total_potential_gain_brl == pytest.approx(
         pd.to_numeric(
             result.table["Potencial de ganho em R$"],
@@ -308,9 +308,9 @@ def test_value_tree_disabled_sugar_factory_indicators_are_not_in_table():
 
     tags = set(result.table["tag_benchmarking"])
 
-    assert "MELFINPRZ" not in tags
-    assert "INMOFA" not in tags
-    assert "RECUPSJM" not in tags
+    assert "mel_pureza" not in tags
+    assert "ind_monit_mel_final_centrif" not in tags
+    assert "rec_fabrica_sjm" not in tags
 
 
 def test_value_tree_input_without_price_does_not_fail():
@@ -323,11 +323,11 @@ def test_value_tree_input_without_price_does_not_fail():
     )
 
     cal = result.table.loc[
-        result.table["tag_benchmarking"] == "CALGSC"
+        result.table["tag_benchmarking"] == "dose_cal_saca"
     ].iloc[0]
 
     polimero = result.table.loc[
-        result.table["tag_benchmarking"] == "PLIMGPSC"
+        result.table["tag_benchmarking"] == "dose_polimero_saca"
     ].iloc[0]
 
     assert pd.isna(cal["Potencial de ganho em R$"])

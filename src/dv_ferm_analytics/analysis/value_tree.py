@@ -88,92 +88,92 @@ class IndicatorDefinition:
 
 COMMON_INDICATORS = (
     IndicatorDefinition(
-        "RTC%",
+        "rtc_dig",
         "RTC%",
         "RTC",
         "basic_higher",
     ),
     IndicatorDefinition(
-        "EXTRTOTAL%",
+        "extr_atart",
         "EXTRAÇÃO EM ART (%)",
         "PERDAS",
         "basic_higher",
     ),
     IndicatorDefinition(
-        "PRDTORTAFILT",
+        "perd_torta",
         "PERDAS TORTA DE FILTRO (%)",
         "PERDAS",
         "basic_lower",
     ),
     IndicatorDefinition(
-        "PRDAGRESGER",
+        "perd_resid",
         "PERDAS ÁGUAS RESIDUAIS - GERAL (%)",
         "PERDAS",
         "basic_lower",
     ),
     IndicatorDefinition(
-        "PRDAGLAVCANA",
+        "perd_recep_cana",
         "PERDAS ÁGUAS DA RECEPÇÃO DE CANA (%)",
         "PERDAS",
         "basic_lower",
     ),
     IndicatorDefinition(
-        "PRDINDETERM",
+        "perd_indet_dig",
         "PERDAS INDETERMINADAS (%)",
         "PERDAS",
         "basic_lower",
     ),
     IndicatorDefinition(
-        "RENDGERDEST",
+        "rgd",
         "RGD (%)",
         "PERDAS",
         "rgd",
     ),
     IndicatorDefinition(
-        "BASTVINH10^5",
+        "bast_vinho",
         "BASTONETES X 10^5/mL",
         "FERMENTAÇÃO/DESTILARIA",
         "contamination",
     ),
     IndicatorDefinition(
-        "GLIC%ARTMOST",
+        "glicerol_prod_mosto",
         "GLICEROL%ART DO MOSTO",
         "FERMENTAÇÃO/DESTILARIA",
         "fermentation_loss",
     ),
     IndicatorDefinition(
-        "BIOM%ARTMOST",
+        "biomassa_prod_mosto",
         "BIOMASSA%ART DO MOSTO",
         "FERMENTAÇÃO/DESTILARIA",
         "fermentation_loss",
     ),
     IndicatorDefinition(
-        "PRDVINHFLEGM",
+        "perd_etanol_vinhaca_fleg",
         "PERDA VINHAÇA + FLEGMAÇA (%)",
         "FERMENTAÇÃO/DESTILARIA",
         "ethanol_loss",
     ),
     IndicatorDefinition(
-        "RECETCO2",
+        "rec_etanol_co2",
         "RECUPERAÇÃO NA TORRE DE CO2 (%)",
         "FERMENTAÇÃO/DESTILARIA",
         "ethanol_recovery",
     ),
     IndicatorDefinition(
-        "ACIDOSULF",
+        "dose_acido_sulfurico_etanol",
         "ÁCIDO SULFÚRICO (g/L de etanol)",
         "INSUMOS",
         "input_ethanol",
     ),
     IndicatorDefinition(
-        "ANTESPDISPDA",
+        "antiesp_disp_litro",
         "ANTIESPUMANTE + DISPERSANTE + DUPLA AÇÃO (g/L de etanol)",
         "INSUMOS",
         "input_ethanol",
     ),
 
     IndicatorDefinition(
-        "ARTVMO",
+        "atart_resid_mosto",
         "ART DO VINHO BRUTO % ART MOSTO",
         "FERMENTAÇÃO/DESTILARIA",
         "fermentation_loss",
@@ -183,45 +183,45 @@ COMMON_INDICATORS = (
 
 NON_AUTONOMOUS_INDICATORS = (
     IndicatorDefinition(
-        "PRDMULTIGER",
+        "perd_multijato",
         "PERDAS ÁGUAS DOS MULTIJATOS - GERAL (%)",
         "PERDAS",
         "basic_lower",
     ),
     IndicatorDefinition(
-        "ARTENSAC",
+        "mix_acucar",
         "MIX (%)",
         # "FÁBRICA DE AÇÚCAR",
         "MIX",
         "mix",
     ),
     # IndicatorDefinition(
-    #     "MELFINPRZ",
+    #     "mel_pureza",
     #     "MEL FINAL PUREZA (%) APÓS ESTOQUE",
     #     "FÁBRICA DE AÇÚCAR",
     #     "no_financial_rule",
     # ),
     # IndicatorDefinition(
-    #     "INMOFA",
+    #     "ind_monit_mel_final_centrif",
     #     "ÍNDICE DE MONITORAMENTO DOS MÉIS FINAIS APÓS ESTOQUE",
     #     "FÁBRICA DE AÇÚCAR",
     #     "no_financial_rule",
     # ),
     # IndicatorDefinition(
-    #     "RECUPSJM",
+    #     "rec_fabrica_sjm",
     #     "SJM (%)",
     #     "FÁBRICA DE AÇÚCAR",
     #     "sjm",
     # ),
 
     IndicatorDefinition(
-        "CALGSC",
+        "dose_cal_saca",
         "CAL (g/saca)",
         "INSUMOS",
         "input_sugar",
     ),
     IndicatorDefinition(
-        "PLIMGPSC",
+        "dose_polimero_saca",
         "POLÍMEROS (g/saca)",
         "INSUMOS",
         "input_sugar",
@@ -231,7 +231,7 @@ NON_AUTONOMOUS_INDICATORS = (
 
 AUTONOMOUS_INDICATORS = (
     # IndicatorDefinition(
-    #     "ARTVINBRU",
+    #     "atart_vinho",
     #     "ART NO VINHO BRUTO (%)",
     #     "FERMENTAÇÃO/DESTILARIA",
     #     "fermentation_loss",
@@ -241,8 +241,8 @@ AUTONOMOUS_INDICATORS = (
 
 HIGHER_IS_BETTER_FINANCIAL = frozenset(
     {
-        "RTC%",
-        "EXTRTOTAL%",
+        "rtc_dig",
+        "extr_atart",
 
     }
 )
@@ -250,11 +250,11 @@ HIGHER_IS_BETTER_FINANCIAL = frozenset(
 
 LOWER_IS_BETTER_FINANCIAL = frozenset(
     {
-        "PRDTORTAFILT",
-        "PRDAGRESGER",
-        "PRDMULTIGER",
-        "PRDAGLAVCANA",
-        "PRDINDETERM",
+        "perd_torta",
+        "perd_resid",
+        "perd_multijato",
+        "perd_recep_cana",
+        "perd_indet_dig",
     }
 )
 
@@ -293,11 +293,11 @@ def calculate_value_tree(
     moagem_safra_ton: float | None = None,
     art_cana_medio_pct: float | None = None,
     sugar_mix_pct: float | None = None,
-    moagem_tag: str = "CANAPROCES",
-    art_cana_tag: str = "ARTCANAGIDES",
-    sugar_mix_tag: str = "ARTENSAC",
-    ethanol_production_tag: str = "ETPROD100PCV",
-    sugar_production_tag: str = "ACPROD100PCT",
+    moagem_tag: str = "cana_moida",
+    art_cana_tag: str = "atart_cana_dig",
+    sugar_mix_tag: str = "mix_acucar",
+    ethanol_production_tag: str = "producao_etanol",
+    sugar_production_tag: str = "producao_acucar",
     indicator_col: str = "tag_benchmarking",
     value_col: str = "VALOR_ACUMULADO",
     top_value_col: str = "media_top",
@@ -334,20 +334,20 @@ def calculate_value_tree(
         As chaves devem ser as tags, por exemplo:
 
         {
-            "CALGSC": 0.00100,
-            "PLIMGPSC": 0.00200,
-            "ACIDOSULF": 0.00300,
-            "ANTESPDISPDA": 0.00400,
+            "dose_cal_saca": 0.00100,
+            "dose_polimero_saca": 0.00200,
+            "dose_acido_sulfurico_etanol": 0.00300,
+            "antiesp_disp_litro": 0.00400,
         }
 
     moagem_safra_ton:
-        Se None, será obtida de CANAPROCES.
+        Se None, será obtida de cana_moida.
 
     art_cana_medio_pct:
-        Se None, será obtido de ARTCANAGIDES.
+        Se None, será obtido de atart_cana_dig.
 
     sugar_mix_pct:
-        Se None, será obtido de ARTENSAC.
+        Se None, será obtido de mix_acucar.
     """
 
     inputs = resolve_value_tree_inputs(
@@ -838,8 +838,8 @@ def resolve_value_tree_inputs(
     *,
     moagem_safra_ton: float | None = None,
     art_cana_medio_pct: float | None = None,
-    moagem_tag: str = "CANAPROCES",
-    art_cana_tag: str = "ARTCANAGIDES",
+    moagem_tag: str = "cana_moida",
+    art_cana_tag: str = "atart_cana_dig",
     indicator_col: str = "tag_benchmarking",
     value_col: str = "VALOR_ACUMULADO",
     date_col: str = "DATA_HORA",

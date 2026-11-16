@@ -48,6 +48,10 @@ Detailed usage instructions are available in:
 docs/MANUAL_MODULOS_DV_FERM_ANALYTICS.md
 ```
 
+## Indicator identifiers
+
+Since 0.2.0, indicators are identified by the indicator-graph code (`tte_grafo.Indicador.codigo`), e.g. `rtc_dig`, `cana_moida`, `mix_acucar`, `perd_torta`, instead of the legacy monthly AvSafra tags (`RTC%`, `CANAPROCES`, `ARTENSAC`, `PRDTORTAFILT`). The column names (`tag_benchmarking`, `VALOR_ACUMULADO`, `VALOR_MES`) are unchanged and remain configurable per function.
+
 ## Quick example
 
 ```python

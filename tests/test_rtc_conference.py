@@ -23,35 +23,35 @@ def _row(
 
 def _dataset():
     values_2025 = {
-        "RTC%": 90.0,
-        "EXTRTOTAL%": 95.0,
-        "RENDGERDEST": 89.0,
-        "PRDTORTAFILT": 0.50,
-        "PRDAGLAVCANA": 0.20,
-        "PRDAGRESGER": 0.30,
-        "PRDMULTIGER": 0.40,
-        "PRDINDETERM": 1.00,
-        "TENTRCANAPND": 92.0,
-        "ARTENSAC": 40.0,
-        "ARTCANAGIDES": 13.0,
-        "RENDKGAÇPTCA": 100.0,
-        "RENDLPORT": 50.0,
+        "rtc_dig": 90.0,
+        "extr_atart": 95.0,
+        "rgd": 89.0,
+        "perd_torta": 0.50,
+        "perd_recep_cana": 0.20,
+        "perd_resid": 0.30,
+        "perd_multijato": 0.40,
+        "perd_indet_dig": 1.00,
+        "tempo_aprov_geral": 92.0,
+        "mix_acucar": 40.0,
+        "atart_cana_dig": 13.0,
+        "prod_acucar": 100.0,
+        "prod_etanol": 50.0,
     }
 
     values_2026 = {
-        "RTC%": 91.5,
-        "EXTRTOTAL%": 96.0,
-        "RENDGERDEST": 90.0,
-        "PRDTORTAFILT": 0.40,
-        "PRDAGLAVCANA": 0.25,
-        "PRDAGRESGER": 0.25,
-        "PRDMULTIGER": 0.30,
-        "PRDINDETERM": 0.80,
-        "TENTRCANAPND": 94.0,
-        "ARTENSAC": 50.0,
-        "ARTCANAGIDES": 12.5,
-        "RENDKGAÇPTCA": 110.0,
-        "RENDLPORT": 55.0,
+        "rtc_dig": 91.5,
+        "extr_atart": 96.0,
+        "rgd": 90.0,
+        "perd_torta": 0.40,
+        "perd_recep_cana": 0.25,
+        "perd_resid": 0.25,
+        "perd_multijato": 0.30,
+        "perd_indet_dig": 0.80,
+        "tempo_aprov_geral": 94.0,
+        "mix_acucar": 50.0,
+        "atart_cana_dig": 12.5,
+        "prod_acucar": 110.0,
+        "prod_etanol": 55.0,
     }
 
     rows = []
@@ -77,9 +77,9 @@ def _dataset():
 def test_default_tags_match_updated_legacy_script():
     cfg = RtcConferenceIndicators()
 
-    assert cfg.time_utilization == "TENTRCANAPND"
-    assert cfg.sugar_productivity == "RENDKGAÇPTCA"
-    assert cfg.ethanol_productivity == "RENDLPORT"
+    assert cfg.time_utilization == "tempo_aprov_geral"
+    assert cfg.sugar_productivity == "prod_acucar"
+    assert cfg.ethanol_productivity == "prod_etanol"
     assert cfg.target_description == "RTC digestor"
     assert cfg.extraction_description == "EXTRAÇÃO EM ART (%)"
 
@@ -169,7 +169,7 @@ def test_latest_value_is_used_within_month():
                 [
                     _row(
                         2026,
-                        "RTC%",
+                        "rtc_dig",
                         80.0,
                         month=8,
                         day=1,
@@ -195,7 +195,7 @@ def test_missing_rtc_raises():
 
     df = df.loc[
         ~(
-            (df["tag_benchmarking"] == "RTC%")
+            (df["tag_benchmarking"] == "rtc_dig")
             & df["DATA_HORA"].str.startswith("2025")
         )
     ]

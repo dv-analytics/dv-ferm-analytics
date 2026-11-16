@@ -13,31 +13,31 @@ from dv_ferm_analytics.analysis.value_tree_selected_units import (
 def _make_df() -> pd.DataFrame:
     rows = [
         # alvo 100 - duas datas para testar "último valor do mês"
-        (100, "Alvo", "2026-08-10", "RTC%", 91.0),
-        (100, "Alvo", "2026-08-31", "RTC%", 92.0),
-        (100, "Alvo", "2026-08-31", "EXTRTOTAL%", 95.0),
-        (100, "Alvo", "2026-08-31", "PRDTORTAFILT", 0.50),
-        (100, "Alvo", "2026-08-31", "ARTENSAC", 40.0),
-        (100, "Alvo", "2026-08-31", "CANAPROCES", 1_000_000.0),
-        (100, "Alvo", "2026-08-31", "ARTCANAGIDES", 13.0),
-        (100, "Alvo", "2026-08-31", "ETPROD100PCV", 50_000.0),
-        (100, "Alvo", "2026-08-31", "ACPROD100PCT", 70_000.0),
+        (100, "Alvo", "2026-08-10", "rtc_dig", 91.0),
+        (100, "Alvo", "2026-08-31", "rtc_dig", 92.0),
+        (100, "Alvo", "2026-08-31", "extr_atart", 95.0),
+        (100, "Alvo", "2026-08-31", "perd_torta", 0.50),
+        (100, "Alvo", "2026-08-31", "mix_acucar", 40.0),
+        (100, "Alvo", "2026-08-31", "cana_moida", 1_000_000.0),
+        (100, "Alvo", "2026-08-31", "atart_cana_dig", 13.0),
+        (100, "Alvo", "2026-08-31", "producao_etanol", 50_000.0),
+        (100, "Alvo", "2026-08-31", "producao_acucar", 70_000.0),
         # referência 200
-        (200, "Ref A", "2026-08-15", "RTC%", 94.0),
-        (200, "Ref A", "2026-08-31", "RTC%", 95.0),
-        (200, "Ref A", "2026-08-31", "EXTRTOTAL%", 97.0),
-        (200, "Ref A", "2026-08-31", "PRDTORTAFILT", 0.20),
-        (200, "Ref A", "2026-08-31", "ARTENSAC", 50.0),
+        (200, "Ref A", "2026-08-15", "rtc_dig", 94.0),
+        (200, "Ref A", "2026-08-31", "rtc_dig", 95.0),
+        (200, "Ref A", "2026-08-31", "extr_atart", 97.0),
+        (200, "Ref A", "2026-08-31", "perd_torta", 0.20),
+        (200, "Ref A", "2026-08-31", "mix_acucar", 50.0),
         # referência 300
-        (300, "Ref B", "2026-08-31", "RTC%", 93.0),
-        (300, "Ref B", "2026-08-31", "EXTRTOTAL%", 96.0),
-        (300, "Ref B", "2026-08-31", "PRDTORTAFILT", 0.30),
-        (300, "Ref B", "2026-08-31", "ARTENSAC", 60.0),
+        (300, "Ref B", "2026-08-31", "rtc_dig", 93.0),
+        (300, "Ref B", "2026-08-31", "extr_atart", 96.0),
+        (300, "Ref B", "2026-08-31", "perd_torta", 0.30),
+        (300, "Ref B", "2026-08-31", "mix_acucar", 60.0),
         # outra usina fora da lista
-        (400, "Fora", "2026-08-31", "RTC%", 99.0),
-        (400, "Fora", "2026-08-31", "EXTRTOTAL%", 99.0),
+        (400, "Fora", "2026-08-31", "rtc_dig", 99.0),
+        (400, "Fora", "2026-08-31", "extr_atart", 99.0),
         # outro mês não pode entrar
-        (200, "Ref A", "2026-07-31", "RTC%", 99.5),
+        (200, "Ref A", "2026-07-31", "rtc_dig", 99.5),
     ]
 
     return pd.DataFrame(
@@ -62,7 +62,7 @@ def test_build_reference_uses_only_selected_units_and_latest_values():
     )
 
     rtc = means.loc[
-        means["tag_benchmarking"] == "RTC%"
+        means["tag_benchmarking"] == "rtc_dig"
     ].iloc[0]
 
     assert rtc["media_top"] == pytest.approx(94.0)
@@ -72,7 +72,7 @@ def test_build_reference_uses_only_selected_units_and_latest_values():
 
     rtc_200 = detail.loc[
         (detail["usina_code_benchmarking"] == 200)
-        & (detail["tag_benchmarking"] == "RTC%")
+        & (detail["tag_benchmarking"] == "rtc_dig")
     ].iloc[0]
 
     assert rtc_200["VALOR_ACUMULADO"] == pytest.approx(95.0)
@@ -134,8 +134,8 @@ def test_include_mix_false_removes_mix_from_reference_and_tree():
         include_mix=False,
     )
 
-    assert "ARTENSAC" not in set(result.indicator_means["tag_benchmarking"])
-    assert "ARTENSAC" not in set(result.table["tag_benchmarking"])
+    assert "mix_acucar" not in set(result.indicator_means["tag_benchmarking"])
+    assert "mix_acucar" not in set(result.table["tag_benchmarking"])
 
 
 def test_calculate_selected_units_value_tree_uses_reference_mean():
@@ -157,7 +157,7 @@ def test_calculate_selected_units_value_tree_uses_reference_mean():
     )
 
     rtc = result.table.loc[
-        result.table["tag_benchmarking"] == "RTC%"
+        result.table["tag_benchmarking"] == "rtc_dig"
     ].iloc[0]
 
     assert rtc["Usina"] == pytest.approx(92.0)

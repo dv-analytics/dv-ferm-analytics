@@ -25,32 +25,32 @@ def _history() -> pd.DataFrame:
         )
 
     # 2023: melhor perda de torta.
-    add(2023, "RTC%", 93.0)
-    add(2023, "EXTRTOTAL%", 96.0)
-    add(2023, "PRDTORTAFILT", 0.20)
-    add(2023, "ARTENSAC", 35.0)
+    add(2023, "rtc_dig", 93.0)
+    add(2023, "extr_atart", 96.0)
+    add(2023, "perd_torta", 0.20)
+    add(2023, "mix_acucar", 35.0)
 
     # 2024: melhor RTC, melhor extração e maior mix histórico.
-    add(2024, "RTC%", 95.0)
-    add(2024, "EXTRTOTAL%", 97.0)
-    add(2024, "PRDTORTAFILT", 0.30)
-    add(2024, "ARTENSAC", 60.0)
+    add(2024, "rtc_dig", 95.0)
+    add(2024, "extr_atart", 97.0)
+    add(2024, "perd_torta", 0.30)
+    add(2024, "mix_acucar", 60.0)
 
     # 2025: outro indicador pode vir daqui.
-    add(2025, "RTC%", 94.0)
-    add(2025, "EXTRTOTAL%", 96.5)
-    add(2025, "PRDTORTAFILT", 0.25)
-    add(2025, "ARTENSAC", 45.0)
+    add(2025, "rtc_dig", 94.0)
+    add(2025, "extr_atart", 96.5)
+    add(2025, "perd_torta", 0.25)
+    add(2025, "mix_acucar", 45.0)
 
     # Período corrente.
-    add(2026, "RTC%", 92.0)
-    add(2026, "EXTRTOTAL%", 95.0)
-    add(2026, "PRDTORTAFILT", 0.50)
-    add(2026, "ARTENSAC", 40.0)
-    add(2026, "CANAPROCES", 500_000.0)
-    add(2026, "ARTCANAGIDES", 13.0)
-    add(2026, "ETPROD100PCV", 45_000.0)
-    add(2026, "ACPROD100PCT", 55_000.0)
+    add(2026, "rtc_dig", 92.0)
+    add(2026, "extr_atart", 95.0)
+    add(2026, "perd_torta", 0.50)
+    add(2026, "mix_acucar", 40.0)
+    add(2026, "cana_moida", 500_000.0)
+    add(2026, "atart_cana_dig", 13.0)
+    add(2026, "producao_etanol", 45_000.0)
+    add(2026, "producao_acucar", 55_000.0)
 
     return pd.DataFrame(rows)
 
@@ -71,7 +71,7 @@ def test_monthly_history_uses_latest_value_per_year_indicator() -> None:
         [
             {
                 "DATA_HORA": pd.Timestamp("2024-08-15"),
-                "tag_benchmarking": "RTC%",
+                "tag_benchmarking": "rtc_dig",
                 "VALOR_ACUMULADO": 90.0,
                 "usina_nome": "Usina Teste",
             }
@@ -88,7 +88,7 @@ def test_monthly_history_uses_latest_value_per_year_indicator() -> None:
 
     rtc_2024 = history.loc[
         (history["year"] == 2024)
-        & (history["tag_benchmarking"] == "RTC%")
+        & (history["tag_benchmarking"] == "rtc_dig")
     ]
 
     assert float(rtc_2024.iloc[0]["value"]) == pytest.approx(95.0)
@@ -106,14 +106,14 @@ def test_reference_combines_different_years() -> None:
 
     indexed = reference.set_index("tag_benchmarking")
 
-    assert int(indexed.loc["RTC%", "Ano de referência"]) == 2024
-    assert float(indexed.loc["RTC%", "media_top"]) == pytest.approx(95.0)
+    assert int(indexed.loc["rtc_dig", "Ano de referência"]) == 2024
+    assert float(indexed.loc["rtc_dig", "media_top"]) == pytest.approx(95.0)
 
-    assert int(indexed.loc["PRDTORTAFILT", "Ano de referência"]) == 2023
-    assert float(indexed.loc["PRDTORTAFILT", "media_top"]) == pytest.approx(0.20)
+    assert int(indexed.loc["perd_torta", "Ano de referência"]) == 2023
+    assert float(indexed.loc["perd_torta", "media_top"]) == pytest.approx(0.20)
 
-    assert int(indexed.loc["ARTENSAC", "Ano de referência"]) == 2024
-    assert float(indexed.loc["ARTENSAC", "media_top"]) == pytest.approx(60.0)
+    assert int(indexed.loc["mix_acucar", "Ano de referência"]) == 2024
+    assert float(indexed.loc["mix_acucar", "media_top"]) == pytest.approx(60.0)
 
 
 def test_mix_can_be_excluded() -> None:
@@ -126,7 +126,7 @@ def test_mix_can_be_excluded() -> None:
         include_mix=False,
     )
 
-    assert "ARTENSAC" not in set(reference["tag_benchmarking"])
+    assert "mix_acucar" not in set(reference["tag_benchmarking"])
 
     result = calculate_perfect_year_value_tree(
         _history(),
@@ -139,7 +139,7 @@ def test_mix_can_be_excluded() -> None:
     )
 
     assert result.include_mix is False
-    assert "ARTENSAC" not in set(result.table["tag_benchmarking"])
+    assert "mix_acucar" not in set(result.table["tag_benchmarking"])
 
 
 def test_current_year_can_be_excluded_from_reference() -> None:
@@ -149,13 +149,13 @@ def test_current_year_can_be_excluded_from_reference() -> None:
     # excluído, as referências devem vir dos anos anteriores.
     df.loc[
         (df["DATA_HORA"].dt.year == 2026)
-        & (df["tag_benchmarking"] == "RTC%"),
+        & (df["tag_benchmarking"] == "rtc_dig"),
         "VALOR_ACUMULADO",
     ] = 99.0
 
     df.loc[
         (df["DATA_HORA"].dt.year == 2026)
-        & (df["tag_benchmarking"] == "PRDTORTAFILT"),
+        & (df["tag_benchmarking"] == "perd_torta"),
         "VALOR_ACUMULADO",
     ] = 0.10
 
@@ -171,8 +171,8 @@ def test_current_year_can_be_excluded_from_reference() -> None:
 
     indexed = reference.set_index("tag_benchmarking")
 
-    assert int(indexed.loc["RTC%", "Ano de referência"]) == 2024
-    assert int(indexed.loc["PRDTORTAFILT", "Ano de referência"]) == 2023
+    assert int(indexed.loc["rtc_dig", "Ano de referência"]) == 2024
+    assert int(indexed.loc["perd_torta", "Ano de referência"]) == 2023
 
 
 def test_result_carries_reference_year_per_indicator() -> None:
@@ -194,11 +194,11 @@ def test_result_carries_reference_year_per_indicator() -> None:
     }.issubset(result.table.columns)
 
     rtc = result.table.loc[
-        result.table["tag_benchmarking"] == "RTC%"
+        result.table["tag_benchmarking"] == "rtc_dig"
     ].iloc[0]
 
     torta = result.table.loc[
-        result.table["tag_benchmarking"] == "PRDTORTAFILT"
+        result.table["tag_benchmarking"] == "perd_torta"
     ].iloc[0]
 
     assert int(rtc["Ano de referência"]) == 2024

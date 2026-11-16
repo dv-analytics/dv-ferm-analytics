@@ -16,13 +16,13 @@ def _base_df() -> pd.DataFrame:
     rows: list[dict[str, object]] = []
 
     configs = {
-        "RTC%": {
+        "rtc_dig": {
             2025: [90.0, 90.2, 90.4, 90.6, 90.8, 91.0],
             2026: [91.0, 91.3, 91.3, 91.65, 91.75, 92.0],
             "acc_2025": 91.0,
             "acc_2026": 92.1,
         },
-        "PRDTORTAFILT": {
+        "perd_torta": {
             2025: [1.20, 1.22, 1.18, 1.19, 1.21, 1.20],
             2026: [1.10, 1.11, 1.09, 1.12, 1.08, 1.10],
             "acc_2025": 1.20,
@@ -59,7 +59,7 @@ def _base_df() -> pd.DataFrame:
 def test_builds_requested_table_and_difference_is_current_minus_previous():
     result = calculate_year_comparison(
         _base_df(),
-        ["RTC%", "PRDTORTAFILT"],
+        ["rtc_dig", "perd_torta"],
         current_year=2026,
         previous_year=2025,
         current_month=6,
@@ -74,7 +74,7 @@ def test_builds_requested_table_and_difference_is_current_minus_previous():
         "Significância",
     ]
 
-    rtc = result.table.loc[result.table["Indicador"] == "RTC%"].iloc[0]
+    rtc = result.table.loc[result.table["Indicador"] == "rtc_dig"].iloc[0]
     assert rtc["Valor Acumulado 2025"] == pytest.approx(91.0)
     assert rtc["Valor Acumulado 2026"] == pytest.approx(92.1)
     assert rtc["Diferença"] == pytest.approx(1.1)
@@ -84,7 +84,7 @@ def test_builds_requested_table_and_difference_is_current_minus_previous():
 def test_higher_is_better_positive_difference_is_blue():
     result = calculate_year_comparison(
         _base_df(),
-        ["RTC%"],
+        ["rtc_dig"],
         current_year=2026,
         previous_year=2025,
         current_month=6,
@@ -99,7 +99,7 @@ def test_higher_is_better_positive_difference_is_blue():
 def test_lower_is_better_negative_difference_is_blue():
     result = calculate_year_comparison(
         _base_df(),
-        ["PRDTORTAFILT"],
+        ["perd_torta"],
         current_year=2026,
         previous_year=2025,
         current_month=6,
@@ -114,7 +114,7 @@ def test_lower_is_better_negative_difference_is_blue():
 def test_higher_is_better_negative_difference_is_red():
     df = _base_df()
     mask = (
-        (df["tag_benchmarking"] == "RTC%")
+        (df["tag_benchmarking"] == "rtc_dig")
         & (df["ano"] == 2026)
         & (df["mes"] == 6)
     )
@@ -122,7 +122,7 @@ def test_higher_is_better_negative_difference_is_red():
 
     result = calculate_year_comparison(
         df,
-        ["RTC%"],
+        ["rtc_dig"],
         current_year=2026,
         previous_year=2025,
         current_month=6,
@@ -134,7 +134,7 @@ def test_higher_is_better_negative_difference_is_red():
 def test_lower_is_better_positive_difference_is_red():
     df = _base_df()
     mask = (
-        (df["tag_benchmarking"] == "PRDTORTAFILT")
+        (df["tag_benchmarking"] == "perd_torta")
         & (df["ano"] == 2026)
         & (df["mes"] == 6)
     )
@@ -142,7 +142,7 @@ def test_lower_is_better_positive_difference_is_red():
 
     result = calculate_year_comparison(
         df,
-        ["PRDTORTAFILT"],
+        ["perd_torta"],
         current_year=2026,
         previous_year=2025,
         current_month=6,
@@ -154,7 +154,7 @@ def test_lower_is_better_positive_difference_is_red():
 def test_parametric_paired_test_is_used_for_normal_differences():
     result = calculate_year_comparison(
         _base_df(),
-        ["RTC%"],
+        ["rtc_dig"],
         current_year=2026,
         previous_year=2025,
         current_month=6,
@@ -215,7 +215,7 @@ def test_insufficient_pairs_are_reported_without_crashing():
 
     result = calculate_year_comparison(
         df,
-        ["RTC%"],
+        ["rtc_dig"],
         current_year=2026,
         previous_year=2025,
         current_month=3,
@@ -242,7 +242,7 @@ def test_explicit_direction_and_label_override_inference():
 def test_reference_month_is_inferred_from_current_year():
     result = calculate_year_comparison(
         _base_df(),
-        ["RTC%"],
+        ["rtc_dig"],
         current_year=2026,
         previous_year=2025,
     )
@@ -255,7 +255,7 @@ def test_input_dataframe_is_not_modified():
 
     calculate_year_comparison(
         df,
-        ["RTC%"],
+        ["rtc_dig"],
         current_year=2026,
         previous_year=2025,
         current_month=6,
@@ -294,7 +294,7 @@ def test_relative_difference_is_nan_when_previous_value_is_zero():
 def test_style_metadata_is_available_without_optional_html_dependencies():
     result = calculate_year_comparison(
         _base_df(),
-        ["RTC%", "PRDTORTAFILT"],
+        ["rtc_dig", "perd_torta"],
         current_year=2026,
         previous_year=2025,
         current_month=6,
@@ -315,7 +315,7 @@ def test_missing_required_column_raises_clear_error():
     with pytest.raises(ValueError, match="VALOR_MES"):
         calculate_year_comparison(
             df,
-            ["RTC%"],
+            ["rtc_dig"],
             current_year=2026,
             previous_year=2025,
             current_month=6,

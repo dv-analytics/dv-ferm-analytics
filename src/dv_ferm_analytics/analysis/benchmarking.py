@@ -25,7 +25,7 @@ def calculate_top_benchmark(
     autonoma: bool,
     difusor: bool,
     top_n: int = 5,
-    ranking_indicator: str = "RTC%",
+    ranking_indicator: str = "rtc_dig",
     plant_col: str = "usina_nome",
     indicator_col: str = "tag_benchmarking",
     value_col: str = "VALOR_ACUMULADO",

@@ -18,48 +18,48 @@ class RtcConferenceIndicators:
     Os valores padrão reproduzem as tags e nomes do script legado atualizado.
     """
 
-    target: str = "RTC%"
+    target: str = "rtc_dig"
     target_description: str = "RTC digestor"
 
-    extraction: str = "EXTRTOTAL%"
+    extraction: str = "extr_atart"
     extraction_description: str = "EXTRAÇÃO EM ART (%)"
 
-    rgd: str = "RENDGERDEST"
+    rgd: str = "rgd"
     rgd_description: str = "RGD (%)"
 
-    filter_cake_loss: str = "PRDTORTAFILT"
+    filter_cake_loss: str = "perd_torta"
     filter_cake_loss_description: str = "PERDAS TORTA DE FILTRO (%)"
 
-    cane_reception_water_loss: str = "PRDAGLAVCANA"
+    cane_reception_water_loss: str = "perd_recep_cana"
     cane_reception_water_loss_description: str = (
         "PERDAS ÁGUAS DA RECEPÇÃO DE CANA (%)"
     )
 
-    residual_water_loss: str = "PRDAGRESGER"
+    residual_water_loss: str = "perd_resid"
     residual_water_loss_description: str = "PERDAS ÁGUAS RESIDUAIS - GERAL (%)"
 
-    multijet_loss: str = "PRDMULTIGER"
+    multijet_loss: str = "perd_multijato"
     multijet_loss_description: str = "PERDAS ÁGUAS DOS MULTIJATOS - GERAL (%)"
 
-    indeterminate_loss: str = "PRDINDETERM"
+    indeterminate_loss: str = "perd_indet_dig"
     indeterminate_loss_description: str = "PERDAS INDETERMINADAS (%)"
 
-    time_utilization: str = "TENTRCANAPND"
+    time_utilization: str = "tempo_aprov_geral"
     time_utilization_description: str = "TEMPO DE APROVEITAMENTO - GERAL (%)"
 
-    mix: str = "ARTENSAC"
+    mix: str = "mix_acucar"
     mix_part1_description: str = "AT_ART DA CANA ENSACADO - MIX"
     mix_part2_description: str = (
         "AT_ART DA CANA ENSACADO - MIX DE PRODUÇÃO_AÇÚCAR_FERMENTEC (%)"
     )
 
-    art_cane: str = "ARTCANAGIDES"
+    art_cane: str = "atart_cana_dig"
     art_cane_description: str = "AT_ART DA CANA - DIGESTOR (%)"
 
-    sugar_productivity: str = "RENDKGAÇPTCA"
+    sugar_productivity: str = "prod_acucar"
     sugar_productivity_description: str = "PRODUTIVIDADE - AÇÚCAR (kg/t)"
 
-    ethanol_productivity: str = "RENDLPORT"
+    ethanol_productivity: str = "prod_etanol"
     ethanol_productivity_description: str = "PRODUTIVIDADE - ETANOL (L/t)"
 
 

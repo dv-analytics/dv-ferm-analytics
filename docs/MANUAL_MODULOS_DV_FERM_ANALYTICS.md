@@ -82,9 +82,9 @@ Exemplo genérico:
 
 ```text
 DATA_HORA  | tag_benchmarking | VALOR_MES | VALOR_ACUMULADO | usina_code_benchmarking
-2026-01-31 | RTC%             | 91.20     | 91.20           | 999
-2026-01-31 | EXTRTOTAL%       | 96.10     | 96.10           | 999
-2026-02-28 | RTC%             | 91.80     | 91.50           | 999
+2026-01-31 | rtc_dig             | 91.20     | 91.20           | 999
+2026-01-31 | extr_atart       | 96.10     | 96.10           | 999
+2026-02-28 | rtc_dig             | 91.80     | 91.50           | 999
 ```
 
 Colunas recorrentes:
@@ -109,7 +109,7 @@ Quando há vários registros para a mesma combinação de ano/mês/indicador, os
 É o formato usado pelas regressões e correlações. Cada linha representa um período e cada coluna representa uma variável.
 
 ```text
-ano | mes | RTC% | EXTRTOTAL% | RENDGERDEST | PRDTORTAFILT
+ano | mes | rtc_dig | extr_atart | rgd | perd_torta
 2025|  1  | 90.8 | 95.9       | 89.2        | 1.30
 2025|  2  | 91.1 | 96.0       | 89.4        | 1.22
 2026|  1  | 91.7 | 96.2       | 90.0        | 1.10
@@ -263,10 +263,10 @@ Dicionário opcional de preços de insumos. As chaves devem ser tags de indicado
 
 ```python
 input_prices = {
-    "CALGSC": 0.001,
-    "PLIMGPSC": 0.020,
-    "ACIDOSULF": 0.005,
-    "ANTESPDISPDA": 0.010,
+    "dose_cal_saca": 0.001,
+    "dose_polimero_saca": 0.020,
+    "dose_acido_sulfurico_etanol": 0.005,
+    "antiesp_disp_litro": 0.010,
 }
 ```
 
@@ -280,9 +280,9 @@ Os valores acima são apenas exemplos sintéticos; preços corporativos reais n�
 
 Quando `None`, o módulo tenta resolver os valores a partir das tags padrão:
 
-- moagem: `CANAPROCES`;
-- ART da cana: `ARTCANAGIDES`;
-- mix: `ARTENSAC`.
+- moagem: `cana_moida`;
+- ART da cana: `atart_cana_dig`;
+- mix: `mix_acucar`.
 
 ### Exemplo
 
@@ -600,7 +600,7 @@ O DataFrame deve estar **previamente filtrado para uma única unidade e o perío
 
 Entre as tags usadas pela metodologia estão, conforme disponibilidade:
 
-`PRDBAGACO`, `PRDTORTAFILT`, `PRDAGLAVCANA`, `PRDMULTIGER`, `PRDAGRESGER`, `PRDINDETERM`, `RTC%`, `EXTRTOTAL%`, `ARTENSAC`, `RENDGERDEST`, `BASTVINH10^5`, `VINHO%ALCOOL`, `PRDVINHFLEGM`, `ARTVMO`, `TEMPVINBRMAX`, `BIOM%ARTMOST`, `GLIC%ARTMOST` e `RECETCO2`.
+`perd_bagaco`, `perd_torta`, `perd_recep_cana`, `perd_multijato`, `perd_resid`, `perd_indet_dig`, `rtc_dig`, `extr_atart`, `mix_acucar`, `rgd`, `bast_vinho`, `alcool_vinho`, `perd_etanol_vinhaca_fleg`, `atart_resid_mosto`, `temp_ferm`, `biomassa_prod_mosto`, `glicerol_prod_mosto` e `rec_etanol_co2`.
 
 ### Exemplo
 
@@ -637,7 +637,7 @@ from dv_ferm_analytics.analysis.rtc_multiple_linear_regression import (
 
 ### Objetivo
 
-Modelar `RTC%` como variável dependente de vários indicadores industriais e produzir diagnóstico global, explicação local e simulações com o ano anterior.
+Modelar `rtc_dig` como variável dependente de vários indicadores industriais e produzir diagnóstico global, explicação local e simulações com o ano anterior.
 
 ### Formato de entrada
 
@@ -694,7 +694,7 @@ result = calculate_rtc_multiple_linear_regression(
     current_year=2026,
     previous_year=2025,
     autonomous=False,
-    target="RTC%",
+    target="rtc_dig",
     current_month=8,
     min_r2=0.40,
 )
@@ -762,11 +762,11 @@ DataFrame wide, com:
 ### Exemplo
 
 ```python
-features = [c for c in df_wide.columns if c not in {"ano", "mes", "RTC%"}]
+features = [c for c in df_wide.columns if c not in {"ano", "mes", "rtc_dig"}]
 
 result = calculate_simple_correlation_regression(
     df_wide,
-    target="RTC%",
+    target="rtc_dig",
     features=features,
     r_min=0.40,
     r_max=0.97,
@@ -851,9 +851,9 @@ Use `ComparisonIndicator` sempre que quiser controlar explicitamente nome e dire
 
 ```python
 indicators = [
-    ComparisonIndicator("RTC%", label="RTC", direction="higher"),
+    ComparisonIndicator("rtc_dig", label="RTC", direction="higher"),
     ComparisonIndicator(
-        "PRDTORTAFILT",
+        "perd_torta",
         label="Perda torta de filtro (%)",
         direction="lower",
     ),

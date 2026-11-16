@@ -19,14 +19,14 @@ def _build_history() -> pd.DataFrame:
         (2026, 93.0, 96.0, 0.30, 30.0),
     ]:
         values = {
-            "RTC%": rtc,
-            "EXTRTOTAL%": extraction,
-            "PRDTORTAFILT": filter_cake,
-            "ARTCANAGIDES": 13.5,
-            "ARTENSAC": mix,
-            "CANAPROCES": 900_000,
-            "BASTVINH10^5": 50.0 if year == 2024 else 60.0,
-            "GLIC%ARTMOST": 2.0 if year == 2024 else 2.5,
+            "rtc_dig": rtc,
+            "extr_atart": extraction,
+            "perd_torta": filter_cake,
+            "atart_cana_dig": 13.5,
+            "mix_acucar": mix,
+            "cana_moida": 900_000,
+            "bast_vinho": 50.0 if year == 2024 else 60.0,
+            "glicerol_prod_mosto": 2.0 if year == 2024 else 2.5,
         }
 
         for tag, value in values.items():
@@ -73,7 +73,7 @@ def test_current_year_can_be_excluded_from_reference() -> None:
 
     df.loc[
         (df["DATA_HORA"] == "2026-08-31")
-        & (df["tag_benchmarking"] == "RTC%"),
+        & (df["tag_benchmarking"] == "rtc_dig"),
         "VALOR_ACUMULADO",
     ] = 99.0
 
